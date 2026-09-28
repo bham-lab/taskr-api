@@ -15,16 +15,16 @@ const app = express()
 const port = process.env.PORT || 3000
 
 const required = [
-   "JWT_SECRET","JWT_EXPIRES_IN",
-   "DATABASE_URL","CLIENT_URL",
+   "JWT_SECRET", "JWT_EXPIRES_IN",
+   "DATABASE_URL", "CLIENT_URL",
    "EMAIL_HOST", "EMAIL_USER",
    "EMAIL_PASS", "CLOUDINARY_CLOUD_NAME",
-   "CLOUDINARY_API_KEY","CLOUDINARY_API_SECRET"
+   "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET"
 ]
 
 const missing = required.filter(key => !process.env[key])
 
-if(missing.length > 0) {
+if (missing.length > 0) {
    console.error("Missing required environment variables:", missing)
    process.exit(1)
 }
@@ -33,25 +33,25 @@ if(missing.length > 0) {
 app.use(helmet())
 
 const corsOptions = {
-  origin: (origin, callback) => {
-    const allowed = [
-      process.env.CLIENT_URL,
-      "https://taskr-frontend-blue.vercel.app",
-      "http://localhost:5173",
-    ].filter(Boolean);
+   origin: (origin, callback) => {
+      const allowed = [
+         process.env.CLIENT_URL,
+         "https://taskr-frontend-blue.vercel.app",
+         "http://localhost:5173",
+      ].filter(Boolean);
 
-    if (!origin || allowed.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error(`CORS blocked: ${origin}`));
-    }
-  },
+      if (!origin || allowed.includes(origin)) {
+         callback(null, true);
+      } else {
+         callback(new Error(`CORS blocked: ${origin}`));
+      }
+   },
 
-  credentials: true,
+   credentials: true,
 
-  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+   methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
 
-  allowedHeaders: ["Content-Type", "Authorization"],
+   allowedHeaders: ["Content-Type", "Authorization"],
 };
 
 // {
@@ -79,12 +79,12 @@ app.use(logger)
 
 
 app.get("/health", (req, res) => {
-  res.json({
-    status:    "ok",
-    timestamp: new Date().toISOString(),
-    uptime:    process.uptime(),
-    environment: process.env.NODE_ENV,
-  })
+   res.json({
+      status: "ok",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+      environment: process.env.NODE_ENV,
+   })
 })
 app.use("/api/auth", auth)
 app.use('/api/todo', todos)
