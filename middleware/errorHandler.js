@@ -30,5 +30,5 @@ export const errorHandler = (err, req, res, next) => {
     }
 
     console.log("UNHANDLED ERROR:", err)
-    res.status(500).json({ error: "Server error", ...err(isDev && { stack: err.stack }) })
+    res.status(500).json({ error: "Server error", ...(isDev && { stack: err.stack }) })
 }
