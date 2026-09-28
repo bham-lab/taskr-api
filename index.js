@@ -77,6 +77,13 @@ app.use(express.json())
 app.use(apiLimiter)
 app.use(logger)
 
+
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    message: "Taskr API is running",
+  });
+});
 app.use("/api/auth", auth)
 app.use('/api/todo', todos)
 app.use("/api/user", user)
