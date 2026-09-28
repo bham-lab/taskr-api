@@ -79,11 +79,13 @@ app.use(logger)
 
 
 app.get("/health", (req, res) => {
-  res.status(200).json({
-    status: "ok",
-    message: "Taskr API is running",
-  });
-});
+  res.json({
+    status:    "ok",
+    timestamp: new Date().toISOString(),
+    uptime:    process.uptime(),
+    environment: process.env.NODE_ENV,
+  })
+})
 app.use("/api/auth", auth)
 app.use('/api/todo', todos)
 app.use("/api/user", user)
