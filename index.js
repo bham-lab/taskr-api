@@ -36,7 +36,7 @@ const corsOptions = {
    origin: (origin, callback) => {
       const allowed = [
          process.env.CLIENT_URL,
-         "http://localhost:5173",
+         "https://taskr-frontend-blue.vercel.app",
       ].filter(Boolean)
 
       if(!origin || allowed.includes(origin)) {
