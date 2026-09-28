@@ -33,21 +33,26 @@ if(missing.length > 0) {
 app.use(helmet())
 
 const corsOptions = {
-   origin: (origin, callback) => {
-      const allowed = [
-         process.env.CLIENT_URL,
-         "https://taskr-frontend-blue.vercel.app",
-      ].filter(Boolean)
+  origin: (origin, callback) => {
+    const allowed = [
+      process.env.CLIENT_URL,
+      "https://taskr-frontend-blue.vercel.app",
+      "http://localhost:5173",
+    ].filter(Boolean);
 
-      if(!origin || allowed.includes(origin)) {
-         callback(null, true)
-      }else {
-         callback(new Error(`CORS blocked: ${origin}`))
-      }
-   },
-   Credentials: true,
-}
+    if (!origin || allowed.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error(`CORS blocked: ${origin}`));
+    }
+  },
 
+  credentials: true,
+
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
 
 // {
 //    origin: process.env.CLIENT_URL || "http://localhost:5173",
